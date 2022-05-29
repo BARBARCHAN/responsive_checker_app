@@ -1,24 +1,22 @@
-# README
+# Database Design
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## admins table
 
-Things you may want to cover:
+|column|type|options|
+|:--:|:--:|:--:|
+|name|string|null:false|
+|email|string|null:false|
+|encrypted_password|string|null:false|
 
-* Ruby version
 
-* System dependencies
+## users table
 
-* Configuration
+|column|type|options|
+|:--:|:--:|:--:|
+|name|string|null:false|
+|email|string|null:false|
+|encrypted_password|string|null:false|
 
-* Database creation
+- has_many :companies
+- has_many :scouts
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
