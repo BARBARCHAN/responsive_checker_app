@@ -20,3 +20,12 @@
 - has_many :companies
 - has_many :scouts
 
+## companies table
+
+|column|type|options|
+|:--:|:--:|:--:|
+|name|string|null:false|
+
+- belongs_to :user
+- has_many :positions
+
