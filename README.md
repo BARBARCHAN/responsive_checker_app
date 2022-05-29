@@ -29,3 +29,12 @@
 - belongs_to :user
 - has_many :positions
 
+## positions table
+
+|column|type|options|
+|:--:|:--:|:--:|
+|name|string|null:false|
+|company|references|foreign_key :true|
+
+- belongs_to :company
+- has_many :scouts, through: :position_scouts
