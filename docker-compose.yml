@@ -2,38 +2,29 @@ version: '3'
 
 services:
   web:
-    build: ./api
+    build:
     command: rails s -p 3000 -b '0.0.0.0'
     ports:
       - '3000:3000'
     depends_on:
       - db
     volumes:
-      - ./api:/app
-      - bundle:/usr/local/bundle
+      - .:/responsive_checker_app/
+      # - bundle:/usr/local/bundle
     tty: true
     stdin_open: true
     container_name: responsive_checker_app
-#   db:
-#     image: mysql:5.6
-#     volumes:
-#       - mysql_data:/var/lib/mysql/
-#     environment:
-#       MYSQL_ROOT_PASSWORD: password
-#     ports:
-#       - '3307:3307'
-#     tty: true
-#   front:
-#     build: ./front
-#     volumes:
-#       - ./front:/app
-#     ports:
-#       - '9000:9000'
-#     tty: true
-#     stdin_open: true
-#     command: npm run serve
-#     container_name: grazine_front
+  db:
+    image: mysql:5.6
+    volumes:
+      - mysql_data:/var/lib/mysql/
+    environment:
+      MYSQL_USER: user
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - '3306:3306'
+    tty: true
 
-# volumes:
-#   mysql_data:
-#   bundle:
+volumes:
+  mysql_data:
+  bundle:
