@@ -1,24 +1,105 @@
-# README
+# Database Design
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## admins table
 
-Things you may want to cover:
+|column|type|options|
+|:--:|:--:|:--:|
+|name|string|null:false|
+|email|string|null:false|
+|encrypted_password|string|null:false|
 
-* Ruby version
 
-* System dependencies
+## users table
 
-* Configuration
+|column|type|options|
+|:--:|:--:|:--:|
+|name|string|null:false|
+|email|string|null:false|
+|encrypted_password|string|null:false|
 
-* Database creation
+- has_many :companies
+- has_many :scouts
 
-* Database initialization
+## companies table
 
-* How to run the test suite
+|column|type|options|
+|:--:|:--:|:--:|
+|name|string|null:false|
 
-* Services (job queues, cache servers, search engines, etc.)
+- belongs_to :user
+- has_many :positions
+- has_many :company_medias
+- has_many :medias, through: :company_medias
 
-* Deployment instructions
+## positions table
 
-* ...
+|column|type|options|
+|:--:|:--:|:--:|
+|name|string|null:false|
+|company|references|foreign_key :true|
+
+- belongs_to :company
+- has_many :position_scouts
+- has_many :scouts, through: :position_scouts
+- belongs_to :category
+
+## scouts table
+
+|column|type|options|
+|:--:|:--:|:--:|
+|name|string|null:false|
+|subject|string|null:false|
+|text|text|null:false|
+
+- belongs_to :user
+- has_many :position_scouts
+- has_many :positions, through: :position_scouts
+
+## position_scouts　table
+
+|column|type|options|
+|:--:|:--:|:--:|
+|position|references|foreign_key :true|
+|scout|references|foreign_key :true|
+
+- belongs_to :position
+- belongs_to :scout
+
+## medias table
+
+|column|type|options|
+|:--:|:--:|:--:|
+|name|string|null:false|
+
+- has_many :company_medias
+- has_many :companies, through: :company_medias
+- has_many :position_medias
+- has_many :positions, through: :position_medias 
+
+## company_medias table
+
+|column|type|options|
+|:--:|:--:|:--:|
+|company|references|foreign_key :true|
+|media|references|foreign_key :true|
+
+- belongs_to :company
+- belongs_to :media
+
+## position_medias table
+
+|column|type|options|
+|:--:|:--:|:--:|
+|position|references|foreign_key :true|
+|media|references|foreign_key :true|
+
+- belongs_to :position
+- belongs_to :media
+
+## categories table
+
+|column|type|options|
+|:--:|:--:|:--:|
+|name|string|null:false|
+
+- has_many :positions
