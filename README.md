@@ -41,7 +41,7 @@
 - belongs_to :company
 - has_many :position_scouts
 - has_many :scouts, through: :position_scouts
-- has_one :category
+- belongs_to :category
 
 ## scouts table
 
