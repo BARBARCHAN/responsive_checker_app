@@ -10,6 +10,9 @@ RUN mkdir /responsive_checker_app
 WORKDIR /responsive_checker_app
 # 作成したmyappディレクトリを作業用ディレクトリとして設定
 
+RUN gem install bundler
+# bundlerをインストールする
+
 COPY Gemfile /responsive_checker_app/Gemfile
 COPY Gemfile.lock /responsive_checker_app/Gemfile.lock
 # ローカルの Gemfile と Gemfile.lock をコンテナ内のmyapp配下にコピー
@@ -19,3 +22,6 @@ RUN bundle install
 
 COPY . /responsive_checker_app
 # ローカルのmyapp配下のファイルをコンテナ内のmyapp配下にコピー
+
+RUN yarn install
+# コンテナ内でyarn installする
