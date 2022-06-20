@@ -1,8 +1,15 @@
 FROM ruby:2.6.5
 # ベースにするイメージを指定
 
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs default-mysql-client vim
+# RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs default-mysql-client vim
 # RailsのインストールやMySQLへの接続に必要なパッケージをインストール
+
+RUN apt-get update && apt-get install -y curl apt-transport-https wget && \
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+apt-get update && apt-get install -y yarn
+
+RUN apt-get update -qq && apt-get install -y nodejs yarn
 
 RUN mkdir /responsive_checker_app
 # コンテナ内にmyappディレクトリを作成
@@ -22,6 +29,3 @@ RUN bundle install
 
 COPY . /responsive_checker_app
 # ローカルのmyapp配下のファイルをコンテナ内のmyapp配下にコピー
-
-RUN yarn install
-# コンテナ内でyarn installする
